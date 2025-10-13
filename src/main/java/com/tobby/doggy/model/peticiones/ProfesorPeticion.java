@@ -1,18 +1,15 @@
-package com.tobby.doggy.model.respuestas;
+package com.tobby.doggy.model.peticiones;
 
 import lombok.*;
-
-import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
-public class ProfesorRespuesta {
+public class ProfesorPeticion {
 
-    private LocalDate creacion;
     private String nombre;
     private String apellido;
+    private Integer matricula;
     private String especialidad;
 }
