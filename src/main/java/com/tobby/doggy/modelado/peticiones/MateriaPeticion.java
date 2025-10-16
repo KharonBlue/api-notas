@@ -1,6 +1,6 @@
-package com.tobby.doggy.model.peticiones;
+package com.tobby.doggy.modelado.peticiones;
 
-import com.tobby.doggy.model.entidades.Profesor;
+import com.tobby.doggy.modelado.entidades.Profesor;
 import lombok.*;
 
 @AllArgsConstructor

@@ -1,5 +1,6 @@
-package com.tobby.doggy.model.entidades;
+package com.tobby.doggy.modelado.respuestas;
 
+import com.tobby.doggy.modelado.entidades.Profesor;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -9,9 +10,8 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @ToString
-public class Materia {
+public class MateriaRespuesta {
 
-    private int id;
     private LocalDate creacion;
     private String nombre;
     private double puntaje;

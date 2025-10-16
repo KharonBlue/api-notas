@@ -1,4 +1,4 @@
-package com.tobby.doggy.model.entidades;
+package com.tobby.doggy.modelado.entidades;
 
 import lombok.*;
 

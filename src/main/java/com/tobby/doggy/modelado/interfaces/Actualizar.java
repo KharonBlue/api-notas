@@ -1,4 +1,4 @@
-package com.tobby.doggy.model.interfaces;
+package com.tobby.doggy.modelado.interfaces;
 
 public interface Actualizar <T>{
 
