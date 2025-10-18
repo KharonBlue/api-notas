@@ -1,5 +1,6 @@
 package com.tobby.doggy.modelado.entidades;
 
+import com.tobby.doggy.modelado.entidades.enumerados.NombreMateria;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -13,8 +14,7 @@ public class Materia {
 
     private int id;
     private LocalDate creacion;
-    private String nombre;
+    private NombreMateria materia;
     private double puntaje;
     private boolean aprobada;
-    private Profesor profesor;
 }
