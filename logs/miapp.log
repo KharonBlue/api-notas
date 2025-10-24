@@ -1,0 +1,35 @@
+2025-10-22T23:12:07.953-03:00  INFO 8372 --- [notas] [main] com.tobby.doggy.NotasApplication         : Starting NotasApplication using Java 21.0.6 with PID 8372 (C:\Users\Unknow\Documents\Proyectos JAVA\doggy\target\classes started by Unknow in C:\Users\Unknow\Documents\Proyectos JAVA\doggy)
+2025-10-22T23:12:07.985-03:00  INFO 8372 --- [notas] [main] com.tobby.doggy.NotasApplication         : No active profile set, falling back to 1 default profile: "default"
+2025-10-22T23:12:09.498-03:00  INFO 8372 --- [notas] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-22T23:12:09.561-03:00  INFO 8372 --- [notas] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 37 ms. Found 0 JPA repository interfaces.
+2025-10-22T23:12:10.648-03:00  INFO 8372 --- [notas] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-10-22T23:12:10.680-03:00  INFO 8372 --- [notas] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-10-22T23:12:10.680-03:00  INFO 8372 --- [notas] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.46]
+2025-10-22T23:12:10.849-03:00  INFO 8372 --- [notas] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-10-22T23:12:10.849-03:00  INFO 8372 --- [notas] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2735 ms
+2025-10-22T23:12:11.281-03:00  INFO 8372 --- [notas] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-22T23:12:11.435-03:00  INFO 8372 --- [notas] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.29.Final
+2025-10-22T23:12:11.520-03:00  INFO 8372 --- [notas] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-10-22T23:12:12.221-03:00  INFO 8372 --- [notas] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-22T23:12:12.306-03:00  INFO 8372 --- [notas] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-10-22T23:12:13.255-03:00  INFO 8372 --- [notas] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7d1f3fe9
+2025-10-22T23:12:13.255-03:00  INFO 8372 --- [notas] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-10-22T23:12:13.355-03:00  WARN 8372 --- [notas] [main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-10-22T23:12:13.371-03:00  WARN 8372 --- [notas] [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-10-22T23:12:13.409-03:00  INFO 8372 --- [notas] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-10-22T23:12:15.530-03:00  INFO 8372 --- [notas] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-22T23:12:16.331-03:00  INFO 8372 --- [notas] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-22T23:12:16.416-03:00  WARN 8372 --- [notas] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-10-22T23:12:16.679-03:00 DEBUG 8372 --- [notas] [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 8 mappings in 'requestMappingHandlerMapping'
+2025-10-22T23:12:16.895-03:00 DEBUG 8372 --- [notas] [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-10-22T23:12:16.964-03:00 DEBUG 8372 --- [notas] [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-10-22T23:12:17.049-03:00 DEBUG 8372 --- [notas] [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-10-22T23:12:17.380-03:00  INFO 8372 --- [notas] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-10-22T23:12:17.396-03:00  INFO 8372 --- [notas] [main] com.tobby.doggy.NotasApplication         : Started NotasApplication in 13.703 seconds (process running for 14.726)
