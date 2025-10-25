@@ -18,7 +18,7 @@ public class Alumno {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ALUMNO_ID", unique = true)
-    private int id;
+    private Long id;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "CREACION")

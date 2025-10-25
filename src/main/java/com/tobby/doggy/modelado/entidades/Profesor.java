@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,7 +18,7 @@ public class Profesor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PROFESOR_ID")
-    private int id;
+    private Long id;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "CREACION")
@@ -35,5 +36,19 @@ public class Profesor {
 
     @Column(name = "MATRICULA", unique = true)
     private Integer matricula;
+
+    @Column(name = "LISTA_MATERIAS")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+    @JoinTable(name = "MATERIA_PROFESOR",
+            joinColumns = @JoinColumn(name = "PROFESOR_ID"),
+            inverseJoinColumns = @JoinColumn(name = "MATERIA_ID"))
+    private List<Materia> materias;
+
+    @Column(name = "LISTA_ALUMNOS")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+    @JoinTable(name = "ALUMNO_PROFESOR",
+            joinColumns = @JoinColumn(name = "PROFESOR_ID"),
+            inverseJoinColumns = @JoinColumn(name = "ALUMNO_ID"))
+    private List<Alumno> alumnos;
 
 }
