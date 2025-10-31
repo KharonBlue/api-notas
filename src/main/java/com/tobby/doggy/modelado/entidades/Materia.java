@@ -27,8 +27,7 @@ public class Materia {
 
     @Column(name = "NOMBRE_MATERIA")
     @Enumerated(EnumType.STRING)
-    private NombreMateria materia;
-
+    private NombreMateria nombreMateria;
 
     @Column(name = "PUNTAJE")
     private double puntaje;
@@ -38,7 +37,7 @@ public class Materia {
 
     public Materia(LocalDate creacion, NombreMateria materia, double puntaje, boolean aprobada) {
         this.creacion = creacion;
-        this.materia = materia;
+        this.nombreMateria = materia;
         this.puntaje = puntaje;
         this.aprobada = aprobada;
     }

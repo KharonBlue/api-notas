@@ -3,6 +3,7 @@ package com.tobby.doggy.sembradores;
 import com.tobby.doggy.modelado.entidades.Materia;
 import com.tobby.doggy.modelado.entidades.enumerados.NombreMateria;
 import com.tobby.doggy.repositorios.IMateriaRepositorio;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 //import org.springframework.context.annotation.Profile;
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 @Component
 public class MateriaSembrador implements ApplicationRunner {
 
+    @Autowired
     private final IMateriaRepositorio materiaRepositorio;
 
     public MateriaSembrador(IMateriaRepositorio materiaRepositorio) {

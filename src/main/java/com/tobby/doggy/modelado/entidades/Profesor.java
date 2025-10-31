@@ -51,4 +51,12 @@ public class Profesor {
             inverseJoinColumns = @JoinColumn(name = "ALUMNO_ID"))
     private List<Alumno> alumnos;
 
+    public Profesor(String nombre, String apellido, String email, Integer matricula, List<Materia> materias, List<Alumno> alumnos) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.email = email;
+        this.matricula = matricula;
+        this.materias = materias;
+        this.alumnos = alumnos;
+    }
 }

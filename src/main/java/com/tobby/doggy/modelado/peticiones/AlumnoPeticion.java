@@ -13,5 +13,5 @@ public class AlumnoPeticion {
 
     private String nombre;
     private String apellido;
-    private List<Materia> materias;
+
 }
