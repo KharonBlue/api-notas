@@ -1,5 +1,6 @@
 package com.tobby.doggy.modelado.entidades;
 
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,9 +32,6 @@ public class Alumno {
     private String apellido;
 
     @Column(name = "LISTA_MATERIAS")
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-    @JoinTable(name = "ALUMNO_MATERIA",
-            joinColumns = @JoinColumn(name = "ALUMNO_ID"),
-            inverseJoinColumns = @JoinColumn(name = "MATERIA_ID"))
+    @OneToMany(mappedBy = "alumno", cascade = CascadeType.ALL)
     private List<Materia> materias;
 }

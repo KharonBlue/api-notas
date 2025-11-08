@@ -1,6 +1,5 @@
 package com.tobby.doggy.modelado.peticiones;
 
-import com.tobby.doggy.modelado.entidades.Materia;
 import lombok.*;
 
 import java.util.List;
@@ -13,5 +12,6 @@ public class AlumnoPeticion {
 
     private String nombre;
     private String apellido;
+    private List<MateriaPeticion> materias;
 
 }

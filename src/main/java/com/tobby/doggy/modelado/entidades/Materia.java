@@ -35,9 +35,25 @@ public class Materia {
     @Column(name = "APROBADA")
     private boolean aprobada;
 
-    public Materia(LocalDate creacion, NombreMateria materia, double puntaje, boolean aprobada) {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "FK_ALUMNO")
+    private Alumno alumno;
+
+    public Materia(NombreMateria nombreMateria, LocalDate creacion) {
+        this.nombreMateria = nombreMateria;
+        this.creacion = creacion;
+    }
+
+    public Materia(LocalDate creacion, NombreMateria materia, double puntaje, boolean aprobada, Alumno alumno) {
         this.creacion = creacion;
         this.nombreMateria = materia;
+        this.puntaje = puntaje;
+        this.aprobada = aprobada;
+        this.alumno = alumno;
+    }
+
+    public Materia(NombreMateria nombreMateria, double puntaje, boolean aprobada) {
+        this.nombreMateria = nombreMateria;
         this.puntaje = puntaje;
         this.aprobada = aprobada;
     }

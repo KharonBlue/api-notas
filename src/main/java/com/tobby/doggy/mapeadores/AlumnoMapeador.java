@@ -8,34 +8,39 @@ import com.tobby.doggy.modelado.respuestas.AlumnoRespuesta;
 import com.tobby.doggy.repositorios.IAlumnoRepositorio;
 import com.tobby.doggy.repositorios.IMateriaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class AlumnoMapeador {
 
     @Autowired
     private IMateriaRepositorio materiaRepositorio;
     @Autowired
     private IAlumnoRepositorio alumnoRepositorio;
-    private final MateriaMapeador materiaMapeador = new MateriaMapeador();
+    @Autowired
+    private MateriaMapeador materiaMapeador;
 
     public Alumno crear(AlumnoPeticion alumnoPeticion) {
         Alumno alumno = new Alumno();
         alumno.setCreacion(LocalDate.now());
         alumno.setNombre(alumnoPeticion.getNombre());
         alumno.setApellido(alumnoPeticion.getApellido());
-        alumno.setMaterias(materiaRepositorio.findAll());
+        alumno.setMaterias(materiaMapeador.crear(alumno));
         return alumno;
     }
 
-    public Alumno actualizarMateria(Long id, List<MateriaPeticion> materias) {
+    public Alumno actualizar(Long id, AlumnoPeticion alumnoPeticion) {
         Optional<Alumno> resultado = alumnoRepositorio.findById(id);
         if (resultado.isPresent()) {
             Alumno alumno = resultado.get();
-            alumno.setMaterias(materiaMapeador.mapear(materias));
+            alumno.setNombre(alumnoPeticion.getNombre());
+            alumno.setApellido(alumnoPeticion.getApellido());
+            alumno.setMaterias(materiaMapeador.actualizar(alumno, alumnoPeticion));
             return alumno;
         }
         throw new IdNoEncontrado("El id ingresado no existe");
@@ -50,7 +55,7 @@ public class AlumnoMapeador {
     }
 
     public AlumnoRespuesta crearRespuesta(Alumno alumno) {
-        return new AlumnoRespuesta(alumno.getCreacion(), alumno.getNombre(), alumno.getApellido(), materiaMapeador.listarPorId(alumno));
+        return new AlumnoRespuesta(alumno.getCreacion(), alumno.getNombre(), alumno.getApellido(), materiaMapeador.mapear(alumno.getMaterias()));
     }
 
 }
