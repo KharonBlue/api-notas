@@ -2,8 +2,7 @@ package com.tobby.doggy.modelado.interfaces;
 
 import com.tobby.doggy.modelado.peticiones.AlumnoPeticion;
 import com.tobby.doggy.modelado.respuestas.AlumnoRespuesta;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 public interface IAlumno {
 
@@ -13,5 +12,5 @@ public interface IAlumno {
 
     String eliminar(Long id);
 
-    List<AlumnoRespuesta> listar();
+    public Page<AlumnoRespuesta> listar(String[] orden, int tamanio, int pagina);
 }

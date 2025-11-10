@@ -8,11 +8,13 @@ import com.tobby.doggy.modelado.respuestas.AlumnoRespuesta;
 import com.tobby.doggy.repositorios.IAlumnoRepositorio;
 import com.tobby.doggy.repositorios.IMateriaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -46,12 +48,16 @@ public class AlumnoMapeador {
         throw new IdNoEncontrado("El id ingresado no existe");
     }
 
-    public List<AlumnoRespuesta> listar(List<Alumno> alumnos) {
-        List<AlumnoRespuesta> alumnoRespuestas = new ArrayList<>();
-        for (Alumno alumno : alumnos) {
-            alumnoRespuestas.add(crearRespuesta(alumno));
+    public Page<AlumnoRespuesta> listar(String[] orden, int tamanio, int pagina) {
+
+        Sort ordenConfig = Sort.by(orden[0]).ascending();
+        if (orden.length > 1 && orden[1].equalsIgnoreCase("desc")) {
+            ordenConfig = ordenConfig.descending();
         }
-        return alumnoRespuestas;
+        Pageable pageable = PageRequest.of(pagina, tamanio, ordenConfig);
+        Page<Alumno> respuestaPageable = alumnoRepositorio.findAll(pageable);
+
+        return respuestaPageable.map(this::crearRespuesta);
     }
 
     public AlumnoRespuesta crearRespuesta(Alumno alumno) {

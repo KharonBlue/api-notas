@@ -9,9 +9,9 @@ import com.tobby.doggy.modelado.peticiones.AlumnoPeticion;
 import com.tobby.doggy.modelado.respuestas.AlumnoRespuesta;
 import com.tobby.doggy.repositorios.IAlumnoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -51,7 +51,8 @@ public class AlumnoServicio implements IAlumno {
     }
 
     @Override
-    public List<AlumnoRespuesta> listar() {
-        return alumnoMapeador.listar(alumnoRepositorio.findAll());
+    public Page<AlumnoRespuesta> listar(String[] orden, int tamanio, int pagina){
+        return alumnoMapeador.listar(orden, tamanio, pagina);
     }
+
 }
