@@ -7,6 +7,7 @@ import com.tobby.doggy.modelado.respuestas.AlumnoRespuesta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("notas/alumno")
