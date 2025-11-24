@@ -21,10 +21,13 @@ import java.io.IOException;
 public class AuthTokenFilter extends OncePerRequestFilter {
 
     public static final String BEARER_ = "Bearer ";
-    @Autowired
-    private JwtUtils jwtUtils;
-    @Autowired
-    private CustomUserDetailsService customUserDetailsService;
+    private final JwtUtils jwtUtils;
+    private final CustomUserDetailsService customUserDetailsService;
+
+    public AuthTokenFilter(JwtUtils jwtUtils, CustomUserDetailsService customUserDetailsService) {
+        this.jwtUtils = jwtUtils;
+        this.customUserDetailsService = customUserDetailsService;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

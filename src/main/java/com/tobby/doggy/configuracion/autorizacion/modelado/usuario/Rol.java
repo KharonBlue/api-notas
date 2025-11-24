@@ -1,4 +1,4 @@
-package com.tobby.doggy.configuracion.autorizacion.modelado.Usuario;
+package com.tobby.doggy.configuracion.autorizacion.modelado.usuario;
 
 public enum Rol {
     USER, ADMIN;

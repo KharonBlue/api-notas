@@ -1,4 +1,4 @@
-package com.tobby.doggy.configuracion.autorizacion.modelado;
+package com.tobby.doggy.configuracion.autorizacion.modelado.dtos;
 
 import lombok.Builder;
 import lombok.Data;
@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @NoArgsConstructor
-public class AutorizacionRespuesta {
+public class TokenRespuesta {
     String token;
 
-    public AutorizacionRespuesta (String token){
+    public TokenRespuesta(String token){
         this.token = token;
     }
 }

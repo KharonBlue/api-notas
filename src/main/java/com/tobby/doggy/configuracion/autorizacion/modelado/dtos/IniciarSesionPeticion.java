@@ -1,4 +1,4 @@
-package com.tobby.doggy.configuracion.autorizacion.modelado;
+package com.tobby.doggy.configuracion.autorizacion.modelado.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
