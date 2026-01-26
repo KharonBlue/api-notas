@@ -4,14 +4,15 @@ package com.tobby.doggy.controladores;
 import com.tobby.doggy.modelado.interfaces.IAlumno;
 import com.tobby.doggy.modelado.peticiones.AlumnoPeticion;
 import com.tobby.doggy.modelado.respuestas.AlumnoRespuesta;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("notas/alumno")
 @RestController
+@Slf4j
 public class AlumnoControlador {
 
     @Autowired
@@ -19,11 +20,13 @@ public class AlumnoControlador {
 
     @PostMapping("/crear")
     public AlumnoRespuesta crear(@RequestBody AlumnoPeticion alumnoPeticion) {
+        log.info("Creacion del Alumno={}", alumnoPeticion.getNombre());
         return alumnoServicio.crear(alumnoPeticion);
     }
 
     @PutMapping("/actualizar/{id}")
     public AlumnoRespuesta actualizar(@PathVariable Long id, @RequestBody AlumnoPeticion alumno) {
+        log.debug("Actualizando alumno={} {}", id, alumno.getNombre());
         return alumnoServicio.actualizar(id, alumno);
     }
 
@@ -36,7 +39,8 @@ public class AlumnoControlador {
     }
 
     @DeleteMapping("/eliminar/{id}")
-    public String eliminar(@PathVariable Long id) {
-        return alumnoServicio.eliminar(id);
+    public ResponseEntity<String> eliminar(@PathVariable Long id) {
+        log.debug("Eliminando usuario={}", id);
+        return ResponseEntity.status(204).body(alumnoServicio.eliminar(id));
     }
 }

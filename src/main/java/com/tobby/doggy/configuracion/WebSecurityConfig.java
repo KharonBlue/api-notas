@@ -7,6 +7,7 @@ import com.tobby.doggy.configuracion.jwt.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -33,6 +34,7 @@ public class WebSecurityConfig {
     }
 
     @Bean
+    //@Profile("test")
     public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthTokenFilter authTokenFilter) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable) // desactiva CSRF para pruebas
@@ -41,8 +43,9 @@ public class WebSecurityConfig {
                 .sessionManagement(manejadorSesion ->
                         manejadorSesion.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/autorizar/**").permitAll() // rutas sin seguridad
-                        .anyRequest().authenticated() // el resto requiere login
+                                .anyRequest().permitAll() //Para desarrollar habilito esta configuracion
+                        /*.requestMatchers("/autorizar/**").permitAll() // rutas sin seguridad
+                        .anyRequest().authenticated() // el resto requiere login*/
                 )
                 .addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

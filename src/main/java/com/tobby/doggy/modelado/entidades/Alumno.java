@@ -34,4 +34,5 @@ public class Alumno {
     @Column(name = "LISTA_MATERIAS")
     @OneToMany(mappedBy = "alumno", cascade = CascadeType.ALL)
     private List<Materia> materias;
+
 }

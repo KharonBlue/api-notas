@@ -2,6 +2,7 @@ package com.tobby.doggy.configuracion.autorizacion.modelado.usuario;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @Entity
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "USUARIO", uniqueConstraints = {@UniqueConstraint(columnNames = {"nombreUsuario"})})
