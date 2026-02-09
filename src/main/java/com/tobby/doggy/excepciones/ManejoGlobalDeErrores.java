@@ -57,6 +57,17 @@ public class ManejoGlobalDeErrores {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(respuesta);
     }
 
+    @ExceptionHandler(ResultadoNoEncontrado.class)
+    public ResponseEntity<ErrorRespuesta> capturarResultadoNoEncontradoExcepcion(ResultadoNoEncontrado ex, WebRequest webRequest) {
+
+        ErrorRespuesta respuesta = new ErrorRespuesta(HttpStatus.NOT_FOUND.toString(),
+                ex.getMessage(),
+                webRequest.getDescription(false), //Para obtener la url sin incluir información del cliente
+                HttpStatus.NOT_FOUND.value());
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(respuesta);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorRespuesta> capturarExcepcion(Exception ex, WebRequest webRequest) {
 

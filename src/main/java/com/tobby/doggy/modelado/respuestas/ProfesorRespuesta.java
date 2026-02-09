@@ -1,5 +1,6 @@
 package com.tobby.doggy.modelado.respuestas;
 
+import com.tobby.doggy.modelado.entidades.enumerados.NombreMateria;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -11,8 +12,10 @@ import java.time.LocalDate;
 @ToString
 public class ProfesorRespuesta {
 
-    private LocalDate creacion;
     private String nombre;
     private String apellido;
-    private String especialidad;
+    private String email;
+    private Integer matricula;
+    private NombreMateria materia;
+    private LocalDate creacion;
 }

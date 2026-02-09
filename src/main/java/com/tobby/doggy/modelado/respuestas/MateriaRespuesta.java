@@ -15,4 +15,5 @@ public class MateriaRespuesta {
     private NombreMateria nombreMateria;
     private double puntaje;
     private boolean aprobada;
+    private ProfesorRespuesta profesorRespuesta;
 }
