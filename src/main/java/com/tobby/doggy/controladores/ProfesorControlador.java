@@ -1,10 +1,9 @@
 package com.tobby.doggy.controladores;
 
+import com.tobby.doggy.modelado.interfaces.IProfesor;
 import com.tobby.doggy.modelado.peticiones.ProfesorPeticion;
 import com.tobby.doggy.modelado.respuestas.ProfesorRespuesta;
-import com.tobby.doggy.servicios.ProfesorServicio;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +14,7 @@ import java.util.List;
 public class ProfesorControlador {
 
     @Autowired
-    private ProfesorServicio profesorServicio;
+    private IProfesor profesorServicio;
 
     @PostMapping("/crear")
     public ResponseEntity<ProfesorRespuesta> crear(@RequestBody ProfesorPeticion profesorPeticion) {
@@ -23,14 +22,12 @@ public class ProfesorControlador {
     }
 
     @PutMapping("/actualizar/{id}")
-    public HttpStatus actualizar(@PathVariable int id, @RequestBody ProfesorPeticion profesorPeticion) {
-
-        return HttpStatus.ACCEPTED;
+    public ResponseEntity<ProfesorRespuesta> actualizar(@PathVariable Long id, @RequestBody ProfesorPeticion profesorPeticion) {
+        return ResponseEntity.ok(profesorServicio.actualizarProfesor(id, profesorPeticion));
     }
 
     @GetMapping("/listar")
-    public List<ProfesorRespuesta> listar() {
-
-        return List.of(new ProfesorRespuesta());
+    public ResponseEntity<List<ProfesorRespuesta>> listar() {
+        return ResponseEntity.ok(profesorServicio.listar());
     }
 }

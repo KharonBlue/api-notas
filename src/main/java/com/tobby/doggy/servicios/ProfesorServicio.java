@@ -9,12 +9,10 @@ import com.tobby.doggy.modelado.entidades.Profesor;
 import com.tobby.doggy.modelado.entidades.enumerados.NombreMateria;
 import com.tobby.doggy.modelado.interfaces.IProfesor;
 import com.tobby.doggy.modelado.peticiones.ProfesorPeticion;
-import com.tobby.doggy.modelado.respuestas.AlumnoRespuesta;
 import com.tobby.doggy.modelado.respuestas.ProfesorRespuesta;
 import com.tobby.doggy.repositorios.IAlumnoRepositorio;
 import com.tobby.doggy.repositorios.IProfesorRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,7 +42,7 @@ public class ProfesorServicio implements IProfesor {
         if (resultado.isEmpty()) {
             throw new IdNoEncontrado("El id ingresado (" + id.toString() + ") no existe");
         }
-        Profesor profesor = mapeador.actualizarProfesor(resultado.get());
+        Profesor profesor = mapeador.actualizarProfesor(resultado.get(), profesorPeticion);
         profesorRepositorio.save(profesor);
         return mapeador.crearProfesorRespuesta(profesor);
     }
@@ -58,28 +56,8 @@ public class ProfesorServicio implements IProfesor {
     }
 
     @Override
-    public Page<ProfesorRespuesta> listar(String[] orden, int tamanio, int pagina) {
-        return null;
+    public List<ProfesorRespuesta> listar() {
+        return mapeador.listar(profesorRepositorio.findAll());
     }
 
-    public List<AlumnoRespuesta> listarAlumnosDeCatedra(Long idProfesor) {
-        return null;
-    }
-
-    private Alumno agregarAlumno(Long idAlumno) {
-        Optional<Alumno> resultado = alumnoRepositorio.findById(idAlumno);
-        if (resultado.isEmpty()) {
-            throw new IdNoEncontrado("El ID " + idAlumno.toString() + " no está presente");
-        }
-        return resultado.get();
-    }
-
-    public Profesor comprobarProfesor(Long id) {
-        Optional<Profesor> resultado = profesorRepositorio.findById(id);
-
-        if (resultado.isEmpty()) {
-            throw new IdNoEncontrado("El id ingresado: " + id.toString() + " no existe");
-        }
-        return resultado.get();
-    }
 }
