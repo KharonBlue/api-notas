@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-@RestControllerAdvice
+@RestControllerAdvice(basePackages = "com.tobby.doggy.controladores")
 public class ManejoGlobalDeErrores {
 
     /*Al usar la etiqueta @Valid en el controlador capturaremos los errores de
