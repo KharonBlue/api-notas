@@ -3,7 +3,6 @@ package com.tobby.doggy.mapeadores;
 import com.tobby.doggy.excepciones.IdNoEncontrado;
 import com.tobby.doggy.modelado.entidades.Alumno;
 import com.tobby.doggy.modelado.peticiones.AlumnoPeticion;
-import com.tobby.doggy.modelado.peticiones.MateriaPeticion;
 import com.tobby.doggy.modelado.respuestas.AlumnoRespuesta;
 import com.tobby.doggy.repositorios.IAlumnoRepositorio;
 import com.tobby.doggy.repositorios.IMateriaRepositorio;
@@ -20,8 +19,6 @@ import java.util.Optional;
 @Component
 public class AlumnoMapeador {
 
-    @Autowired
-    private IMateriaRepositorio materiaRepositorio;
     @Autowired
     private IAlumnoRepositorio alumnoRepositorio;
     @Autowired

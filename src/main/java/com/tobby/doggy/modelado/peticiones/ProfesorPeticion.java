@@ -1,5 +1,6 @@
 package com.tobby.doggy.modelado.peticiones;
 
+import com.tobby.doggy.modelado.entidades.enumerados.NombreMateria;
 import lombok.*;
 
 @AllArgsConstructor
@@ -10,6 +11,7 @@ public class ProfesorPeticion {
 
     private String nombre;
     private String apellido;
+    private String email;
     private Integer matricula;
-    private String especialidad;
+    private NombreMateria materia;
 }
