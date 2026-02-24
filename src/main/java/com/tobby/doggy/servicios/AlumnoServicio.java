@@ -10,6 +10,9 @@ import com.tobby.doggy.repositorios.IAlumnoRepositorio;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -38,7 +41,11 @@ public class AlumnoServicio implements IAlumno {
     @Override
     public AlumnoRespuesta actualizar(Long id, AlumnoPeticion alumnoPeticion) {
         log.debug("Alumno a actualizar= {}, {}", id, alumnoPeticion.getNombre());
-        Alumno alumno = alumnoMapeador.actualizar(id, alumnoPeticion);
+        Optional<Alumno> resultado = alumnoRepositorio.findById(id);
+        if (resultado.isEmpty()) {
+            throw new IdNoEncontrado("El id ingresado no existe");
+        }
+        Alumno alumno = alumnoMapeador.actualizar(id, alumnoPeticion, resultado.get());
         materiaServicio.actualizar(alumno, alumnoPeticion);
         alumnoRepositorio.save(alumno);
         log.info("Alumno actualizado={}", alumno.getNombre());
@@ -58,8 +65,16 @@ public class AlumnoServicio implements IAlumno {
     }
 
     @Override
-    public Page<AlumnoRespuesta> listar(String[] orden, int tamanio, int pagina){
-        return alumnoMapeador.listar(orden, tamanio, pagina);
+    public Page<AlumnoRespuesta> listar(String[] orden, int tamanio, int pagina) {
+
+        Sort ordenConfig = Sort.by(orden[0]).ascending();
+        if (orden.length > 1 && orden[1].equalsIgnoreCase("desc")) {
+            ordenConfig = ordenConfig.descending();
+        }
+        Pageable pageable = PageRequest.of(pagina, tamanio, ordenConfig);
+        Page<Alumno> respuestaPaginable = alumnoRepositorio.findAll(pageable);
+
+        return alumnoMapeador.listar(respuestaPaginable);
     }
 
 }

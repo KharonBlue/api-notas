@@ -1,13 +1,11 @@
 package com.tobby.doggy.mapeadores;
 
-import com.tobby.doggy.excepciones.IdNoEncontrado;
 import com.tobby.doggy.modelado.entidades.Alumno;
 import com.tobby.doggy.modelado.entidades.Materia;
 import com.tobby.doggy.modelado.entidades.enumerados.NombreMateria;
 import com.tobby.doggy.modelado.peticiones.AlumnoPeticion;
 import com.tobby.doggy.modelado.peticiones.MateriaPeticion;
 import com.tobby.doggy.modelado.respuestas.MateriaRespuesta;
-import com.tobby.doggy.repositorios.IAlumnoRepositorio;
 import com.tobby.doggy.repositorios.IMateriaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,8 +18,6 @@ import java.util.Optional;
 @Component
 public class MateriaMapeador {
 
-    @Autowired
-    IAlumnoRepositorio alumnoRepositorio;
     @Autowired
     IMateriaRepositorio materiaRepositorio;
 
@@ -71,19 +67,6 @@ public class MateriaMapeador {
         }
         return materiaRespuestas;
     }
-
-/*
-    public List<MateriaRespuesta> listarPorId(Alumno alumno) {
-        Optional<Alumno> resultado = alumnoRepositorio.findById(alumno.getId());
-        if (resultado.isPresent()) {
-            List<MateriaRespuesta> materias = new ArrayList<>();
-            for (Materia m : resultado.get().getMaterias()) {
-                materias.add(crearRespuesta(m));
-            }
-            return materias;
-        }
-        throw new IdNoEncontrado("El Alumno ingresado no existe");
-    }*/
 
     public MateriaRespuesta crearRespuesta(Materia materia) {
         return new MateriaRespuesta(materia.getNombreMateria(), materia.getPuntaje(), materia.isAprobada());
