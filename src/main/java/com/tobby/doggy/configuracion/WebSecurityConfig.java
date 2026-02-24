@@ -43,8 +43,11 @@ public class WebSecurityConfig {
                 .sessionManagement(manejadorSesion ->
                         manejadorSesion.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                                .anyRequest().permitAll() //Para desarrollar habilito esta configuracion
-                        /*.requestMatchers("/autorizar/**").permitAll() // rutas sin seguridad
+                        //.anyRequest().permitAll() //Para desarrollar habilito esta configuracion
+                        .requestMatchers(
+                                "/autorizar/**",
+                                "/docs/**"
+                        ).permitAll() // rutas sin seguridad
                         .anyRequest().authenticated() // el resto requiere login*/
                 )
                 .addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class)

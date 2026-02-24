@@ -1,16 +1,14 @@
 package com.tobby.doggy.modelado.entidades;
 
+import com.tobby.doggy.modelado.entidades.enumerados.NombreMateria;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
+@Data
 @Entity
 @Table(name = "PROFESOR")
 public class Profesor {
@@ -31,32 +29,28 @@ public class Profesor {
     private String apellido;
 
     @Column(name = "EMAIL", unique = true)
-
     private String email;
 
     @Column(name = "MATRICULA", unique = true)
     private Integer matricula;
 
-    @Column(name = "LISTA_MATERIAS")
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-    @JoinTable(name = "MATERIA_PROFESOR",
-            joinColumns = @JoinColumn(name = "PROFESOR_ID"),
-            inverseJoinColumns = @JoinColumn(name = "MATERIA_ID"))
-    private List<Materia> materias;
+    @Column(name = "MATERIA")
+    private NombreMateria materia;
 
-    @Column(name = "LISTA_ALUMNOS")
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-    @JoinTable(name = "ALUMNO_PROFESOR",
-            joinColumns = @JoinColumn(name = "PROFESOR_ID"),
-            inverseJoinColumns = @JoinColumn(name = "ALUMNO_ID"))
-    private List<Alumno> alumnos;
-
-    public Profesor(String nombre, String apellido, String email, Integer matricula, List<Materia> materias, List<Alumno> alumnos) {
+    public Profesor(String nombre, String apellido, String email, Integer matricula, NombreMateria materia, LocalDate creacion) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
         this.matricula = matricula;
-        this.materias = materias;
-        this.alumnos = alumnos;
+        this.materia = materia;
+        this.creacion = creacion;
+    }
+
+    public Profesor(String nombre, String apellido, String email, Integer matricula, NombreMateria materia) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.email = email;
+        this.matricula = matricula;
+        this.materia = materia;
     }
 }

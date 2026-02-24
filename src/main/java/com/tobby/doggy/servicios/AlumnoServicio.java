@@ -3,6 +3,7 @@ package com.tobby.doggy.servicios;
 import com.tobby.doggy.excepciones.IdNoEncontrado;
 import com.tobby.doggy.mapeadores.AlumnoMapeador;
 import com.tobby.doggy.modelado.entidades.Alumno;
+import com.tobby.doggy.modelado.entidades.Materia;
 import com.tobby.doggy.modelado.interfaces.IAlumno;
 import com.tobby.doggy.modelado.peticiones.AlumnoPeticion;
 import com.tobby.doggy.modelado.respuestas.AlumnoRespuesta;
