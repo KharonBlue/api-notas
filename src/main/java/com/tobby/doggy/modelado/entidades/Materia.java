@@ -70,4 +70,12 @@ public class Materia {
         this.puntaje = puntaje;
         this.aprobada = aprobada;
     }
+
+    public Materia(LocalDate creacion, NombreMateria nombreMateria, double puntaje, boolean aprobada, Alumno alumno) {
+        this.creacion = creacion;
+        this.nombreMateria = nombreMateria;
+        this.puntaje = puntaje;
+        this.aprobada = aprobada;
+        this.alumno = alumno;
+    }
 }

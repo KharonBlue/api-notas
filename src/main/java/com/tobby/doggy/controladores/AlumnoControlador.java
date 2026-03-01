@@ -103,8 +103,8 @@ public class AlumnoControlador {
                     example = "nombre,asc",
                     array = @ArraySchema(schema = @Schema(type = "string"))
             )
-            @RequestParam(defaultValue = "nombre,asc") String[] orden) {
-        return ResponseEntity.ok(alumnoServicio.listar(orden, tamanio, pagina));
+            @RequestParam(defaultValue = "nombre,asc") String orden) {
+        return ResponseEntity.ok(alumnoServicio.listar( pagina, tamanio, orden));
     }
 
     @DeleteMapping("/eliminar/{id}")

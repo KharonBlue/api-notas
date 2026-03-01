@@ -3,7 +3,6 @@ package com.tobby.doggy.servicios;
 import com.tobby.doggy.excepciones.IdNoEncontrado;
 import com.tobby.doggy.mapeadores.AlumnoMapeador;
 import com.tobby.doggy.modelado.entidades.Alumno;
-import com.tobby.doggy.modelado.entidades.Materia;
 import com.tobby.doggy.modelado.interfaces.IAlumno;
 import com.tobby.doggy.modelado.peticiones.AlumnoPeticion;
 import com.tobby.doggy.modelado.respuestas.AlumnoRespuesta;
@@ -31,7 +30,6 @@ public class AlumnoServicio implements IAlumno {
 
     @Override
     public AlumnoRespuesta crear(AlumnoPeticion alumnoPeticion) {
-
         Alumno alumno = alumnoMapeador.crear(alumnoPeticion);
         alumnoRepositorio.save(alumno);
         materiaServicio.crear(alumno);
@@ -66,10 +64,10 @@ public class AlumnoServicio implements IAlumno {
     }
 
     @Override
-    public Page<AlumnoRespuesta> listar(String[] orden, int tamanio, int pagina) {
+    public Page<AlumnoRespuesta> listar(int pagina, int tamanio, String orden) {
 
-        Sort ordenConfig = Sort.by(orden[0]).ascending();
-        if (orden.length > 1 && orden[1].equalsIgnoreCase("desc")) {
+        Sort ordenConfig = Sort.by(orden).ascending();
+        if (orden.equalsIgnoreCase("desc")) {
             ordenConfig = ordenConfig.descending();
         }
         Pageable pageable = PageRequest.of(pagina, tamanio, ordenConfig);
