@@ -47,13 +47,6 @@ public class ProfesorServicio implements IProfesor {
         return mapeador.crearProfesorRespuesta(profesor);
     }
 
-    public Set<Profesor> asignarProfesores(NombreMateria nombreMateria) {
-        Set<Profesor> profesores = profesorRepositorio.findByMateria(nombreMateria);
-        if (profesores.isEmpty()) {
-            throw new ResultadoNoEncontrado("No hay profesores disponibles para la materia: " + nombreMateria.getNombreMateria());
-        }
-        return profesores;
-    }
 
     @Override
     public List<ProfesorRespuesta> listar() {

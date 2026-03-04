@@ -6,7 +6,6 @@ import lombok.*;
 
 import java.time.LocalDate;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
@@ -47,6 +46,16 @@ public class Profesor {
     }
 
     public Profesor(String nombre, String apellido, String email, Integer matricula, NombreMateria materia) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.email = email;
+        this.matricula = matricula;
+        this.materia = materia;
+    }
+
+    public Profesor(Long id, LocalDate creacion, String nombre, String apellido, String email, Integer matricula, NombreMateria materia) {
+        this.id = id;
+        this.creacion = creacion;
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
