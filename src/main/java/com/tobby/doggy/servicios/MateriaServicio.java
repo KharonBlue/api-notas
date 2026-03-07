@@ -9,10 +9,12 @@ import com.tobby.doggy.modelado.respuestas.MateriaRespuesta;
 import com.tobby.doggy.repositorios.IMateriaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class MateriaServicio implements IMateria {
 
     @Autowired
@@ -28,7 +30,6 @@ public class MateriaServicio implements IMateria {
         return materiaMapeador.mapear(alumno.getMaterias());
     }
 
-    //Aun por hacer
     @Override
     public List<Materia> actualizar(Alumno alumno, AlumnoPeticion alumnoPeticion) {
         return materiaRepositorio.saveAll(materiaMapeador.actualizar(alumno, alumnoPeticion));
@@ -36,7 +37,7 @@ public class MateriaServicio implements IMateria {
 
     @Override
     public List<MateriaRespuesta> listar() {
-        return materiaMapeador.listar();
+        return materiaMapeador.listar(materiaRepositorio.findAll());
     }
 
 }

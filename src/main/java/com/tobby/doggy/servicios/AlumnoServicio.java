@@ -14,11 +14,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Slf4j
 @Service
+@Transactional
 public class AlumnoServicio implements IAlumno {
 
     @Autowired
@@ -29,6 +31,7 @@ public class AlumnoServicio implements IAlumno {
     private MateriaServicio materiaServicio;
 
     @Override
+    @Transactional
     public AlumnoRespuesta crear(AlumnoPeticion alumnoPeticion) {
         Alumno alumno = alumnoMapeador.crear(alumnoPeticion);
         alumnoRepositorio.save(alumno);
@@ -38,6 +41,7 @@ public class AlumnoServicio implements IAlumno {
     }
 
     @Override
+
     public AlumnoRespuesta actualizar(Long id, AlumnoPeticion alumnoPeticion) {
         log.debug("Alumno a actualizar= {}, {}", id, alumnoPeticion.getNombre());
         Optional<Alumno> resultado = alumnoRepositorio.findById(id);
