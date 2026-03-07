@@ -6,20 +6,15 @@ import com.tobby.doggy.modelado.entidades.enumerados.NombreMateria;
 import com.tobby.doggy.modelado.peticiones.AlumnoPeticion;
 import com.tobby.doggy.modelado.peticiones.MateriaPeticion;
 import com.tobby.doggy.modelado.respuestas.MateriaRespuesta;
-import com.tobby.doggy.repositorios.IMateriaRepositorio;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class MateriaMapeador {
 
-    @Autowired
-    IMateriaRepositorio materiaRepositorio;
 
     public List<Materia> crear(Alumno alumno) {
         List<Materia> materias = new ArrayList<>();
@@ -34,27 +29,25 @@ public class MateriaMapeador {
     }
 
 
-    public List<MateriaRespuesta> listar() {
-        List<MateriaRespuesta> materias = new ArrayList<>();
-        for (Materia m : materiaRepositorio.findAll()) {
-            materias.add(crearRespuesta(m));
+    public List<MateriaRespuesta> listar(List<Materia> materias) {
+        List<MateriaRespuesta> materiaRespuestas = new ArrayList<>();
+        for (Materia m : materias) {
+            materiaRespuestas.add(crearRespuesta(m));
         }
-        return materias;
+        return materiaRespuestas;
     }
 
     public List<Materia> actualizar(Alumno alumno, AlumnoPeticion alumnoPeticion) {
-        return mapear(alumnoPeticion.getMaterias(), alumno);
+        return mapear(alumnoPeticion.getMaterias(), alumno.getMaterias());
     }
 
-    private List<Materia> mapear(List<MateriaPeticion> materiaPeticions, Alumno alumno) {
-        List<Materia> materias = new ArrayList<>();
-        for (int i = 0; i < alumno.getMaterias().size(); i++) {
-            Optional<Materia> resultado = materiaRepositorio.findById(alumno.getMaterias().get(i).getId());
-            if (resultado.isPresent()) {
-                Materia materia = resultado.get();
-                materia.setPuntaje(materiaPeticions.get(i).getPuntaje());
-                materia.setAprobada(materiaPeticions.get(i).isAprobada());
-                materias.add(materia);
+    private List<Materia> mapear(List<MateriaPeticion> materiaPeticions, List<Materia> materias) {
+        for (MateriaPeticion mp : materiaPeticions) {
+            for (Materia m : materias) {
+                if (m.getNombreMateria() == mp.getNombre()) {
+                    m.setPuntaje(mp.getPuntaje());
+                    m.setAprobada(mp.isAprobada());
+                }
             }
         }
         return materias;

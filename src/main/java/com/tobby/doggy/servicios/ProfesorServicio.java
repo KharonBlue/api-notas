@@ -2,11 +2,8 @@ package com.tobby.doggy.servicios;
 
 
 import com.tobby.doggy.excepciones.IdNoEncontrado;
-import com.tobby.doggy.excepciones.ResultadoNoEncontrado;
 import com.tobby.doggy.mapeadores.ProfesorMapeador;
-import com.tobby.doggy.modelado.entidades.Alumno;
 import com.tobby.doggy.modelado.entidades.Profesor;
-import com.tobby.doggy.modelado.entidades.enumerados.NombreMateria;
 import com.tobby.doggy.modelado.interfaces.IProfesor;
 import com.tobby.doggy.modelado.peticiones.ProfesorPeticion;
 import com.tobby.doggy.modelado.respuestas.ProfesorRespuesta;
@@ -14,12 +11,13 @@ import com.tobby.doggy.repositorios.IAlumnoRepositorio;
 import com.tobby.doggy.repositorios.IProfesorRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
+@Transactional
 public class ProfesorServicio implements IProfesor {
 
     @Autowired
