@@ -14,4 +14,8 @@ public class AlumnoPeticion {
     private String apellido;
     private List<MateriaPeticion> materias;
 
+    public AlumnoPeticion(String nombre, String apellido) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+    }
 }

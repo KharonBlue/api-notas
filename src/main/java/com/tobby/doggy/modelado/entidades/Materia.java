@@ -51,6 +51,15 @@ public class Materia {
     @JdbcTypeCode(SqlTypes.JSON)
     private Profesor profesorAsignado;
 
+    public Materia(Long id, LocalDate creacion, NombreMateria nombreMateria, double puntaje, boolean aprobada, Alumno alumno) {
+        this.id = id;
+        this.creacion = creacion;
+        this.nombreMateria = nombreMateria;
+        this.puntaje = puntaje;
+        this.aprobada = aprobada;
+        this.alumno = alumno;
+    }
+
     public Materia(NombreMateria nombreMateria, LocalDate creacion) {
         this.nombreMateria = nombreMateria;
         this.creacion = creacion;
@@ -69,5 +78,13 @@ public class Materia {
         this.nombreMateria = nombreMateria;
         this.puntaje = puntaje;
         this.aprobada = aprobada;
+    }
+
+    public Materia(LocalDate creacion, NombreMateria nombreMateria, double puntaje, boolean aprobada, Alumno alumno) {
+        this.creacion = creacion;
+        this.nombreMateria = nombreMateria;
+        this.puntaje = puntaje;
+        this.aprobada = aprobada;
+        this.alumno = alumno;
     }
 }

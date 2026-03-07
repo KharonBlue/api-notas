@@ -1,104 +1,101 @@
 package com.tobby.doggy.integracion.controladores;
 
-import com.tobby.doggy.configuracion.autorizacion.modelado.dtos.IniciarSesionPeticion;
-import com.tobby.doggy.configuracion.autorizacion.servicios.CustomUserDetailsService;
-import com.tobby.doggy.configuracion.jwt.JwtUtils;
-import com.tobby.doggy.modelado.respuestas.AlumnoRespuesta;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tobby.doggy.mapeadores.AlumnoMapeador;
+import com.tobby.doggy.modelado.entidades.Alumno;
+import com.tobby.doggy.modelado.peticiones.AlumnoPeticion;
+import com.tobby.doggy.repositorios.IAlumnoRepositorio;
+import com.tobby.doggy.servicios.AlumnoServicio;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.data.domain.Page;
 import org.springframework.http.*;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+@ActiveProfiles("test")
+@Transactional
 public class AlumnoControladorTest {
 
     @Autowired
-    private TestRestTemplate testRestTemplate;
+    private ObjectMapper objectMapper;
     @Autowired
-    private JwtUtils jwtUtils;
+    private MockMvc mockMvc;
+
     @Autowired
-    private AuthenticationManager authenticationManager;
+    private IAlumnoRepositorio alumnoRepositorio;
+    @MockitoBean
+    private AlumnoServicio alumnoServicio;
     @Autowired
-    private CustomUserDetailsService userDetailsService;
+    private AlumnoMapeador alumnoMapeador;
 
-    private HttpEntity<?> entidad;
+    @Test
+    @WithMockUser(username = "admin", roles = "ADMIN")
+    void crearAlumno() throws Exception{
+        AlumnoPeticion alumnoPeticion = new AlumnoPeticion();
+        alumnoPeticion.setNombre("Nombre");
+        alumnoPeticion.setApellido("Apellido");
 
-    @BeforeEach
-    void configuracion() {
-
-        ResponseEntity<IniciarSesionPeticion> response = testRestTemplate.postForEntity(
-                "/autorizar/iniciar-sesion",
-                IniciarSesionPeticion.builder()
-                        .nombreUsuario("test@gmail.com")
-                        .contrasenia("12345678")
-                        .build(),
-                IniciarSesionPeticion.class
-        );
-
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken("test@gmail.com", "12345678")
-        );
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-
-        String jwt = jwtUtils.generarToken(userDetails.getUsername());
-
-        entidad = new HttpEntity<>(null, crearCabeceraConJwt(jwt));
-    }
-
-    private HttpHeaders crearCabeceraConJwt(String jwt) {
-        HttpHeaders cabecera = new HttpHeaders();
-        cabecera.setContentType(MediaType.APPLICATION_JSON);
-        cabecera.setBearerAuth(jwt);
-        return cabecera;
+        mockMvc.perform(post("/notas/alumno/crear")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(alumnoPeticion))
+                )
+                .andExpect(status().isCreated());
     }
 
     @Test
-    void listarAlumnos() {
-
-        int page = 1;
-        int size = 5;
-        String url = String.format("/notas/alumno/listar?page=%d&size=%d&sort=name", page, size);
-
-        ResponseEntity<Page<AlumnoRespuesta>> respuesta = testRestTemplate.exchange(url,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<Page<AlumnoRespuesta>>() {});
-
-        Assertions.assertEquals(HttpStatus.OK, respuesta.getStatusCode());
-        Page<AlumnoRespuesta> pageable = respuesta.getBody();
-
-    }
-
-
-    @Test
-    void actualizarAlumno(){
-        ResponseEntity<String> responseEntity = testRestTemplate.exchange(
-                "/notas/alumno/actualizar/1",
-                HttpMethod.POST,
-                entidad,
-                String.class
-        );
-
-        Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    @WithMockUser(username = "admin", roles = "ADMIN")
+    void listarAlumnos() throws Exception{
+        mockMvc.perform(get("/notas/alumno/listar")
+                        .param("page", "0")
+                        .param("size", "5")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
-    void eliminarAlumno(){
-        
-    }
+    @WithMockUser(username = "admin", roles = "ADMIN")
+    void actualizar() throws Exception {
+
+        Alumno alumno = new Alumno();
+        alumno.setNombre("Juan");
+        alumno.setApellido("Perez");
+        alumno = alumnoRepositorio.save(alumno);
+
+        AlumnoPeticion alumnoPeticion = new AlumnoPeticion();
+        alumnoPeticion.setNombre("NombreActualizado");
+        alumnoPeticion.setApellido("ApellidoActualizado");
 
 
-    private void crearEntidad(Object objeto, String jwt){
-        entidad = new HttpEntity<>(objeto, crearCabeceraConJwt(jwt));
+         mockMvc.perform(put("/notas/alumno/actualizar/{id}", alumno.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(alumnoPeticion))
+                )
+                .andDo(print())
+                .andExpect(status().isOk());
+                // .andExpect(jsonPath("$.nombre").value("NombreActualizado"));
     }
+
+    @Test
+    @WithMockUser(username = "admin", roles = "ADMIN")
+    void eliminar() throws Exception {
+        mockMvc.perform(delete("/notas/alumno/eliminar/{id}", 1L))
+                .andExpect(status().isNoContent());
+
+        assertFalse(alumnoRepositorio.existsById(1L));
+    }
+
 
 }

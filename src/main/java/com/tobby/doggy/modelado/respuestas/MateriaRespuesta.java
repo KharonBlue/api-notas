@@ -20,4 +20,10 @@ public class MateriaRespuesta {
     private boolean aprobada;
     @Schema(description = "Profesor asignado a la materia")
     private ProfesorRespuesta profesorRespuesta;
+
+    public MateriaRespuesta(NombreMateria nombreMateria, double puntaje, boolean aprobada) {
+        this.nombreMateria = nombreMateria;
+        this.puntaje = puntaje;
+        this.aprobada = aprobada;
+    }
 }

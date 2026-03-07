@@ -32,7 +32,7 @@ public class Alumno {
     private String apellido;
 
     @Column(name = "LISTA_MATERIAS")
-    @OneToMany(mappedBy = "alumno", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "alumno", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Materia> materias;
 
 }

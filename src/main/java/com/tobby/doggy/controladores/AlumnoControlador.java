@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,9 +50,9 @@ public class AlumnoControlador {
                             schema = @Schema(implementation = AlumnoRespuesta.class)
                     ))
             })
-    public AlumnoRespuesta crear(@RequestBody AlumnoPeticion alumnoPeticion) {
+    public ResponseEntity<AlumnoRespuesta> crear(@RequestBody AlumnoPeticion alumnoPeticion) {
         log.info("Creacion del Alumno={}", alumnoPeticion.getNombre());
-        return alumnoServicio.crear(alumnoPeticion);
+        return ResponseEntity.status(HttpStatus.CREATED).body(alumnoServicio.crear(alumnoPeticion));
     }
 
     @PutMapping("/actualizar/{id}")
@@ -75,9 +76,9 @@ public class AlumnoControlador {
                             schema = @Schema(implementation = AlumnoRespuesta.class)
                     ))
             })
-    public AlumnoRespuesta actualizar(@PathVariable Long id, @RequestBody AlumnoPeticion alumno) {
+    public ResponseEntity<AlumnoRespuesta> actualizar(@PathVariable Long id, @RequestBody AlumnoPeticion alumno) {
         log.debug("Actualizando alumno={} {}", id, alumno.getNombre());
-        return alumnoServicio.actualizar(id, alumno);
+        return ResponseEntity.ok(alumnoServicio.actualizar(id, alumno));
     }
 
     @GetMapping("/listar")
@@ -103,8 +104,8 @@ public class AlumnoControlador {
                     example = "nombre,asc",
                     array = @ArraySchema(schema = @Schema(type = "string"))
             )
-            @RequestParam(defaultValue = "nombre,asc") String[] orden) {
-        return ResponseEntity.ok(alumnoServicio.listar(orden, tamanio, pagina));
+            @RequestParam(defaultValue = "nombre,asc") String orden) {
+        return ResponseEntity.ok(alumnoServicio.listar( pagina, tamanio, orden));
     }
 
     @DeleteMapping("/eliminar/{id}")

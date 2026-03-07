@@ -12,5 +12,5 @@ public interface IAlumno {
 
     String eliminar(Long id);
 
-    public Page<AlumnoRespuesta> listar(String[] orden, int tamanio, int pagina);
+    public Page<AlumnoRespuesta> listar( int tamanio, int pagina, String orden);
 }
